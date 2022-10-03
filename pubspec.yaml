@@ -16,6 +16,18 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+  get: ^4.3.8
+  image_picker: ^0.8.4+4
+  get_storage: ^2.0.3
+  path: ^1.8.0
+  sqflite: ^2.0.0+4
+  uuid: ^3.0.5
+  group_radio_button: ^1.2.0
+
+
+
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
