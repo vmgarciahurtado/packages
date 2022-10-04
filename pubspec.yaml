@@ -23,6 +23,8 @@ dev_dependencies:
   sqflite: ^2.0.0+4
   uuid: ^3.0.5
   group_radio_button: ^1.2.0
+  flutter_archive: ^4.1.1
+
 
 
 
