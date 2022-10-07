@@ -21,6 +21,7 @@ dev_dependencies:
   either_dart: ^0.1.3
   flutter_lints: ^2.0.0
   path: ^1.8.0
+  animate_do: ^2.0.0
 
 
 
