@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:packages/main/domain/interface/i_dynamic_form_content_repository.dart';
 import 'package:sqflite/sqlite_api.dart';
 
+import '../domain/interface/i_dynamic_form_content_repository.dart';
 import '../domain/model/component_config.dart';
 import '../domain/model/component_option.dart';
 import '../domain/model/dynamic_form_content.dart';
