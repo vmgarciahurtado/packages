@@ -1,7 +1,7 @@
 name: packages
 description: A new Flutter package project.
-version: 0.0.1
-homepage:
+version: 2.0.0
+homepage: https://github.com/vmgarciahurtado/packages
 
 environment:
   sdk: '>=2.18.0-149.0.dev <3.0.0'
@@ -36,8 +36,6 @@ dev_dependencies:
   syncfusion_flutter_sliders: ^19.4.52
   syncfusion_flutter_signaturepad: ^19.4.53
   step_progress_indicator: ^1.0.2
-
-
 
 
 flutter:
