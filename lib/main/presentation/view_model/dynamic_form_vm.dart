@@ -135,11 +135,11 @@ class DynamicFormViewModel extends GetxController {
   /// It gets the form from the DB and sets the title and subtitle of the form.
   void getDynamicForm() async {
     dynamicForm = await _dynamicFormService.getDynamicForm(idForm);
-    if (codClient != '') {
+    /* if (codClient != '') {
       subTitleForm.value = "$codClient  -  ${dynamicForm.name}";
     } else {
-      titleForm.value = dynamicForm.name;
-    }
+    }*/
+    titleForm.value = dynamicForm.name;
   }
 
   /// The above function is used to get the content of the form from the DB.
