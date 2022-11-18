@@ -1,13 +1,13 @@
-import 'package:core_app/_fuerza_venta/presentation/dynamic_form/view_model/dynamic_form_vm.dart';
-import 'package:core_app/lang/messages.dart';
-import 'package:core_app/shared/colors/colors.dart';
-import 'package:core_app/shared/widgets/custom_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../lang/messages.dart';
+import '../../../shared/colors/colors.dart';
+import '../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/custom_page.dart';
+import '../util/dynamic_form_globals.dart' as globals;
+import '../view_model/dynamic_form_vm.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:core_app/shared/widgets/custom_button.dart';
-import 'package:core_app/_fuerza_venta/presentation/dynamic_form/util/dynamic_form_globals.dart'
-    as globals;
 
 class DynamicFormPage extends StatelessWidget {
   DynamicFormPage({Key? key}) : super(key: key);
@@ -23,7 +23,6 @@ class DynamicFormPage extends StatelessWidget {
       },
       child: Obx(
         () => CustomPage(
-          icon: true,
           backButton: true,
           title: viewModel.titleForm.value,
           subTitle: viewModel.subTitleForm.value,
@@ -92,7 +91,7 @@ class DynamicFormPage extends StatelessWidget {
                                           onPressed: () {
                                             viewModel.cancelForm();
                                           },
-                                          text: Messages.appText.cancelBotton),
+                                          text: Messages.appText.cancel),
                                     )),
                                 SizedBox(
                                   width: Get.width * 0.4,
@@ -102,7 +101,7 @@ class DynamicFormPage extends StatelessWidget {
                                           onPressed: () {
                                             viewModel.saveForm();
                                           },
-                                          text: Messages.appText.acceptBotton)),
+                                          text: Messages.appText.accept)),
                                 )
                               ],
                             ),
@@ -118,7 +117,7 @@ class DynamicFormPage extends StatelessWidget {
                                           onPressed: () {
                                             viewModel.goToPreviousQuestion();
                                           },
-                                          text: Messages.appText.textPrevious),
+                                          text: Messages.appText.previous),
                                     )),
                                 SizedBox(
                                   width: Get.width * 0.4,
@@ -129,7 +128,7 @@ class DynamicFormPage extends StatelessWidget {
                                           onPressed: () {
                                             viewModel.goToNextQuestion();
                                           },
-                                          text: Messages.appText.textNext)),
+                                          text: Messages.appText.next)),
                                 )
                               ],
                             ),

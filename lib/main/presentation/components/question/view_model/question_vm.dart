@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -575,14 +573,6 @@ class QuestionComponentViewModel extends GetxController {
 
     switch (param[0]) {
       case 'client':
-        if (Get.isRegistered<RouteClientViewModel>()) {
-          Map<String, dynamic> clientMap;
-          RouteClientViewModel routeClientViewModel = Get.find();
-          var json = jsonEncode(routeClientViewModel.client.toJson());
-          clientMap = jsonDecode(json);
-
-          return getDefaultAnswerValue('client', param, 0, clientMap);
-        }
     }
     return '';
   }

@@ -1,22 +1,6 @@
-import 'package:core_app/_fuerza_venta/presentation/dynamic_form/components/question/question_address/widgets/address_assistant_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:core_app/_fuerza_venta/domain/dynamic_form/model/dynamic_form_content.dart';
-import 'package:core_app/_fuerza_venta/domain/new_client/model/nomenclature_address.dart';
-import 'package:core_app/_fuerza_venta/domain/new_client/service/nomenclature_address_service.dart';
-import 'package:core_app/_fuerza_venta/infrastructure/new_client/repository/new_client_nomenclature_address_repository_sqlite.dart';
-import 'package:core_app/lang/messages.dart';
-import 'package:core_app/shared/Styles/text_styles.dart';
-import 'package:core_app/shared/Styles/widget_styles.dart';
-import 'package:core_app/shared/assets/assets.dart';
-import 'package:core_app/shared/colors/colors.dart';
-import 'package:core_app/shared/widgets/custom_button.dart';
-import 'package:core_app/shared/widgets/custom_card.dart';
-import 'package:core_app/shared/widgets/separator.dart';
-import 'package:core_app/_fuerza_venta/presentation/dynamic_form/components/config/verify_answer_vm.dart';
 
-import 'package:core_app/_fuerza_venta/presentation/dynamic_form/util/dynamic_form_globals.dart'
-    as globals;
 import 'package:packages/main/presentation/components/question/question_address/widgets/address_assistant_item.dart';
 
 import '../../../../../../lang/messages.dart';
@@ -28,7 +12,11 @@ import '../../../../../../shared/widgets/custom_button.dart';
 import '../../../../../../shared/widgets/custom_card.dart';
 import '../../../../../../shared/widgets/separator.dart';
 import '../../../../../domain/model/dynamic_form_content.dart';
+import '../../../../../domain/model/nomenclature_address.dart';
+import '../../../../../domain/service/nomenclature_address_service.dart';
+import '../../../../../infrastructure/nomenclature_address_repository_sqlite.dart';
 import '../../../config/verify_answer_vm.dart';
+import '../../../../util/dynamic_form_globals.dart' as globals;
 
 class AddressQuestionViewModel extends GetxController {
   final VerifyAnswerViewModel verifyViewModel = Get.find(tag: globals.tag);

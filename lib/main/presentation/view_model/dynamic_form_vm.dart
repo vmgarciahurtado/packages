@@ -48,7 +48,6 @@ class DynamicFormViewModel extends GetxController {
 
   String? codClient = '';
   String nameClient = '';
-  Rx<Client>? client;
   Map<String, dynamic>? clientMap;
 
   String idForm;
@@ -74,8 +73,6 @@ class DynamicFormViewModel extends GetxController {
   String typeSurveySegmentation = '';
   double weightingSegmentation = 0;
   List<double> listeWeightingSegmentation = [];
-
-  User? user;
 
   Rx<Widget>? widgetAction = Row().obs;
 
@@ -113,10 +110,6 @@ class DynamicFormViewModel extends GetxController {
       DynamicFormDeleteAnswerService(
           iDeleFormAnswerRepository: DynamicFormDeleteAnswerRepositorySqlite());
 
-  final SyncInformationService _syncInformationService =
-      SyncInformationService(SyncInformationRepositoryHttp());
-  final LocalService _localService = LocalService(LocalOrderRepositorySqlite());
-
   late DynamicForm dynamicForm;
 
   RxList<DynamicFormContent> dynamicFormContent = RxList();
@@ -134,32 +127,15 @@ class DynamicFormViewModel extends GetxController {
 
   @override
   void onInit() async {
-    user = await Util.data.getUser();
-
-    if (Get.isRegistered<RouteClientViewModel>()) {
-      RouteClientViewModel routeClientViewModel = Get.find();
-      codClient = routeClientViewModel.client.value.code;
-      nameClient = routeClientViewModel.client.value.name;
-
-      var json = jsonEncode(routeClientViewModel.client.toJson());
-      clientMap = jsonDecode(json);
-    }
-
     getDynamicForm();
     getDynamicFormCotent();
-
-    if (saveHeader != null && saveHeader!) {
-      saveDynamicFormHeader();
-    }
-
     super.onInit();
   }
 
   /// It gets the form from the DB and sets the title and subtitle of the form.
   void getDynamicForm() async {
     dynamicForm = await _dynamicFormService.getDynamicForm(idForm);
-    if (nameClient != '') {
-      titleForm.value = nameClient;
+    if (codClient != '') {
       subTitleForm.value = "$codClient  -  ${dynamicForm.name}";
     } else {
       titleForm.value = dynamicForm.name;
@@ -489,7 +465,7 @@ class DynamicFormViewModel extends GetxController {
       dynamicForms: idForm,
       dynamicContents: dynamicContentCode,
       clientId: codClient,
-      sellerId: user!.id,
+      sellerId: codClient,
       answer: answer,
       createdAt: createdAt,
       codeParam: codeParam.isEmpty ? '' : codeParam,
@@ -523,7 +499,7 @@ class DynamicFormViewModel extends GetxController {
     Get.dialog(
       CustomDialog(
         title: Text(
-          Messages.appText.textCancelSurvey,
+          Messages.appText.cancelSurvey,
           style: TextStyles.subTitle3Style(
             color: Colors.grey.shade800,
             isBold: true,
@@ -539,7 +515,7 @@ class DynamicFormViewModel extends GetxController {
         },
         content: Center(
           // '¿Seguro que quieres cancelar la encuesta?'
-          child: Text(Messages.appText.textSureWantCancelSurvey),
+          child: Text(Messages.appText.wantCancelSurvey),
         ),
       ),
     );
@@ -598,8 +574,7 @@ class DynamicFormViewModel extends GetxController {
         confirmDialog();
       } else {
         Get.back();
-        Get.snackbar(
-            Messages.appText.errorText, Messages.appText.saveSurveyError,
+        Get.snackbar(Messages.appText.error, Messages.appText.errorTryAgain,
             backgroundColor: Colors.red.shade400, colorText: Colors.white);
       }
     } else {
@@ -618,7 +593,7 @@ class DynamicFormViewModel extends GetxController {
 
   /// It displays a snackbar with a message qhen the for is type "form" to complete required answers.
   alertAnswerIsRequired() {
-    Get.snackbar(Messages.appText.alert, Messages.appText.textAnswerRequerid,
+    Get.snackbar(Messages.appText.alert, Messages.appText.requiredSomeAnswer,
         backgroundColor: Colors.yellow.shade200);
   }
 
@@ -631,7 +606,7 @@ class DynamicFormViewModel extends GetxController {
         child: CustomCard(
           body: Center(
             child: Text(
-              Messages.appText.textRecordingAnswers,
+              Messages.appText.recordingAnswers,
               style: TextStyles.bodyStyle(
                   isBold: true, color: Colores.primaryColor),
               textAlign: TextAlign.center,
@@ -647,7 +622,7 @@ class DynamicFormViewModel extends GetxController {
     Get.back();
     Get.dialog(
         CustomDialog(
-          title: Text(Messages.appText.alertSuccessTitleLbl),
+          title: Text(Messages.appText.succesAction),
           hasRightButton: true,
           hasLeftButton: false,
           onRightPressed: () {
@@ -657,7 +632,7 @@ class DynamicFormViewModel extends GetxController {
             Get.close(2);
           },
           content: Center(
-            child: Text(Messages.appText.textSurveySuccesfully),
+            child: Text(Messages.appText.succesRegistration),
           ),
         ),
         barrierDismissible: false);
@@ -667,44 +642,11 @@ class DynamicFormViewModel extends GetxController {
   void confirmDialogGeneral() async {
     CustomLoading(title: Messages.appText.loading);
 
-    try {
-      await SyncDataViewModel().syncImages();
-      List<Map> localChanges = await _localService.getLocalChanges();
-      Either<Exception, dynamic> response =
-          await _syncInformationService.postInformation(localChanges);
-      if (response.isLeft) {
-        Get.back();
-        //ERROR
-        Get.snackbar(
-            Messages.appText.errorText, Messages.appText.syncErrorMessage,
-            duration: const Duration(seconds: 5),
-            backgroundColor: Colors.red.shade400,
-            colorText: Colors.white);
-      } else {
-        await _localService.deleteLocalChanges();
-        Get.back();
-        Get.dialog(
-            CustomDialog(
-              title: Text(Messages.appText.alertSuccessTitleLbl),
-              hasRightButton: true,
-              hasLeftButton: false,
-              onRightPressed: () {
-                if (functionWhenFinish != null) {
-                  functionWhenFinish!.call();
-                }
-                Get.close(2);
-              },
-              content: Center(
-                child: Text(Messages.appText.textSuccessRegistration),
-              ),
-            ),
-            barrierDismissible: false);
-      }
-    } catch (e) {
+    Future.delayed(const Duration(seconds: 2), (() {
       Get.back();
       Get.dialog(
           CustomDialog(
-            title: Text(Messages.appText.alertSuccessTitleLbl),
+            title: Text(Messages.appText.succesAction),
             hasRightButton: true,
             hasLeftButton: false,
             onRightPressed: () {
@@ -714,11 +656,11 @@ class DynamicFormViewModel extends GetxController {
               Get.close(2);
             },
             content: Center(
-              child: Text(Messages.appText.textSuccessRegistration),
+              child: Text(Messages.appText.succesRegistration),
             ),
           ),
           barrierDismissible: false);
-    }
+    }));
   }
 
   /// It clears the list of components, answer config and answer options.
@@ -869,7 +811,7 @@ class DynamicFormViewModel extends GetxController {
         dynamicForms: idForm,
         dynamicContents: '',
         clientId: codClient,
-        sellerId: user!.id,
+        sellerId: codClient,
         answer: header ?? '',
         createdAt: createdAt,
         codeParam: '');
