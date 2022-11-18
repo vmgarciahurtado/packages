@@ -44,7 +44,7 @@ flutter:
 
   assets:
     - res/icons/
-    - assets/sync.db
+    - assets/dataBase.db
     - databases/sync.db
     
   fonts:
