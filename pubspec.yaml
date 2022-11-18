@@ -45,6 +45,7 @@ flutter:
   assets:
     - res/icons/
     - assets/sync.db
+    - databases/sync.db
   fonts:
     - family: Montserrat
       fonts:
