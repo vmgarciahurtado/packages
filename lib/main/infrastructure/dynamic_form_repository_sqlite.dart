@@ -9,7 +9,7 @@ import 'data/local/sqlite/sqlite_service.dart';
 class DynamicFormRepositorySqlite extends IDynamicFormRepository {
   @override
   Future<DynamicForm> getDynamicForm(String idForm) async {
-    late DynamicForm dynamicForm;
+    DynamicForm? dynamicForm;
     try {
       BaseSqliteService _baseSqliteService = SqliteService();
       Database db = await _baseSqliteService.openDB();
@@ -26,10 +26,10 @@ class DynamicFormRepositorySqlite extends IDynamicFormRepository {
             conditioned: item['conditioned'],
             context: item['context']);
       }
-      return dynamicForm;
+      return dynamicForm!;
     } catch (e) {
       Get.printError(info: "$e");
-      return dynamicForm;
+      return dynamicForm!;
     }
   }
 }
