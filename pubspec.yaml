@@ -31,7 +31,7 @@ dependencies:
   syncfusion_flutter_sliders: ^19.4.52
   syncfusion_flutter_signaturepad: ^19.4.53
   step_progress_indicator: ^1.0.2
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -42,7 +42,6 @@ flutter:
   assets:
     - res/icons/
     - assets/dataBase.db
-    - databases/sync.db
     
   fonts:
     - family: Montserrat
