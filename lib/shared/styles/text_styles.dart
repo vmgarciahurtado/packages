@@ -133,6 +133,26 @@ class TextStyles {
     );
   }
 
+  static TextStyle caption4Style(
+      {Color color = Colors.black, bool isBold = false}) {
+    return TextStyle(
+      color: color,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontFamily: 'OpenSans',
+      fontSize: Get.textScaleFactor * 8,
+    );
+  }
+
+  static TextStyle caption5Style(
+      {Color color = Colors.black, bool isBold = false}) {
+    return TextStyle(
+      color: color,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontFamily: 'OpenSans',
+      fontSize: Get.textScaleFactor * 6,
+    );
+  }
+
   static TextStyle bodyStyle(
       {Color color = Colors.black, bool isBold = false}) {
     return TextStyle(

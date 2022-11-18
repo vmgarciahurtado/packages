@@ -35,6 +35,8 @@ dev_dependencies:
   place_picker: ^0.9.20-nullsafety
   syncfusion_flutter_sliders: ^19.4.52
   syncfusion_flutter_signaturepad: ^19.4.53
+  step_progress_indicator: ^1.0.2
+
 
 
 
