@@ -6,17 +6,42 @@ import 'package:sqflite/sqflite.dart';
 import 'base_sqlite_service.dart';
 import 'package:flutter/services.dart';
 
+import 'dart:io' as io;
+
 class SqliteService extends BaseSqliteService {
   String dbName = 'sync.db';
 
   @override
   Future<Database> openDB() async {
-    var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, dbName);
+    //  var databasesPath = await getDatabasesPath();
+    //  var path = join(databasesPath, dbName);
     Database db;
 
-    //verifica si existe la base de datos en la carpeta raiz
-    var exists = await databaseExists(path);
+//
+    io.Directory applicationDirectory =
+        await getApplicationDocumentsDirectory();
+
+    String dbPathEnglish = join(applicationDirectory.path, "dataBase.db");
+
+    bool dbExistsEnglish = await io.File(dbPathEnglish).exists();
+
+    if (!dbExistsEnglish) {
+      // Copy from asset
+      ByteData data = await rootBundle.load(join("assets", "dataBase.db"));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      // Write and flush the bytes written
+      await io.File(dbPathEnglish).writeAsBytes(bytes, flush: true);
+    }
+
+    db = await openDatabase(dbPathEnglish);
+    return db;
+  }
+
+//
+  //verifica si existe la base de datos en la carpeta raiz
+  /*   var exists = await databaseExists(path);
 
     if (!exists) {
       try {
@@ -32,7 +57,7 @@ class SqliteService extends BaseSqliteService {
     }
     db = await openDatabase(path, readOnly: true);
     return db;
-  }
+  }*/
 
   @override
   Future closeDB(Database db) async {
