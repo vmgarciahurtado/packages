@@ -11,11 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   get: ^4.3.8
   get_storage: ^2.0.3
   flutter_html: ^2.2.1
@@ -36,6 +31,10 @@ dev_dependencies:
   syncfusion_flutter_sliders: ^19.4.52
   syncfusion_flutter_signaturepad: ^19.4.53
   step_progress_indicator: ^1.0.2
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 
 flutter:
