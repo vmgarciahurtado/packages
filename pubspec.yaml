@@ -43,8 +43,8 @@ dev_dependencies:
 flutter:
 
   assets:
-    - res/images/
     - res/icons/
+    - assets/sync.db
   fonts:
     - family: Montserrat
       fonts:
