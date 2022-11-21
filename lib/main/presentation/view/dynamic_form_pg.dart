@@ -88,6 +88,8 @@ class DynamicFormPage extends StatelessWidget {
                                     child: Visibility(
                                       visible: viewModel.isCanceltButton.value,
                                       child: CustomButton(
+                                          backgroundColor:
+                                              Colores.secondaryColor,
                                           onPressed: () {
                                             viewModel.cancelForm();
                                           },
@@ -98,6 +100,7 @@ class DynamicFormPage extends StatelessWidget {
                                   child: Visibility(
                                       visible: viewModel.isAcceptButton.value,
                                       child: CustomButton(
+                                          backgroundColor: Colores.primaryColor,
                                           onPressed: () {
                                             viewModel.saveForm();
                                           },
