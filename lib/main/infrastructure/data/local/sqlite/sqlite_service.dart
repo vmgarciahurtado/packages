@@ -21,13 +21,13 @@ class SqliteService extends BaseSqliteService {
     io.Directory applicationDirectory =
         await getApplicationDocumentsDirectory();
 
-    String dbPathEnglish = join(applicationDirectory.path, "dataBase.db");
+    String dbPathEnglish = join(applicationDirectory.path, "survey.db");
 
     bool dbExistsEnglish = await io.File(dbPathEnglish).exists();
 
     if (!dbExistsEnglish) {
       // Copy from asset
-      ByteData data = await rootBundle.load(join("assets", "dataBase.db"));
+      ByteData data = await rootBundle.load(join("assets", "survey.db"));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

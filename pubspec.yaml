@@ -41,7 +41,7 @@ flutter:
 
   assets:
     - res/icons/
-    - assets/dataBase.db
+    - assets/survey.db
     
   fonts:
     - family: Montserrat
