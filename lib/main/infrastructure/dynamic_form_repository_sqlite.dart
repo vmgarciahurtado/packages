@@ -9,10 +9,11 @@ import 'data/local/sqlite/sqlite_service.dart';
 class DynamicFormRepositorySqlite extends IDynamicFormRepository {
   @override
   Future<DynamicForm> getDynamicForm(String idForm) async {
-    late DynamicForm dynamicForm;
+    DynamicForm dynamicForm = DynamicForm(
+        code: "", id: "", name: "", type: "", conditioned: "", context: "");
     try {
-      BaseSqliteService _baseSqliteService = SqliteService();
-      Database db = await _baseSqliteService.openDB();
+      BaseSqliteService baseSqliteService = SqliteService();
+      Database db = await baseSqliteService.openDB();
       String statement =
           "SELECT _id,code,name,type,conditioned,context FROM dynamic_forms WHERE code = '$idForm'";
       List<Map> list = await db.rawQuery(statement);
