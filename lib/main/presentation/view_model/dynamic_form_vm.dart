@@ -195,8 +195,11 @@ class DynamicFormViewModel extends GetxController {
           await orderListAsGroupQuestion(dynamicFormContent);
         } else {
           for (var i = 0; i < dynamicFormContent.length; i++) {
-            listComponents.add(await CreateFormComponentViewModel()
-                .create(dynamicFormContent[i]));
+            Widget component = await CreateFormComponentViewModel()
+                .create(dynamicFormContent[i]);
+            listComponents.add(CustomCard(
+              body: component,
+            ));
             listAnswerConfig.add(dynamicFormContent[i].config!);
             listAnswerOption.add(dynamicFormContent[i].option!);
           }
