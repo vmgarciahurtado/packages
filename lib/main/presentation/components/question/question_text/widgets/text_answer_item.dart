@@ -46,6 +46,10 @@ class TextAnswerItem extends StatelessWidget {
                       ? Colors.red.shade400
                       : Colors.grey.shade400,
                   width: 1.0)),
+          prefixIcon: const Icon(
+            Icons.text_format,
+            size: 3,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(WidgetStyles.textFieldRadius),
           ),
