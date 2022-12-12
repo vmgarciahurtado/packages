@@ -11,7 +11,7 @@ class NumberAnswerViewModel extends GetxController {
   NumberAnswerViewModel({required this.dynamicFormContent});
 
   RxInt min = 0.obs;
-  RxInt max = 0.obs;
+  RxInt max = 50.obs;
   String hint = '';
 
   Rx<TextEditingController> numberController = TextEditingController().obs;
@@ -26,8 +26,15 @@ class NumberAnswerViewModel extends GetxController {
       numberController.value.text = dynamicFormContent.defaultAnswer!;
     }
     hint = dynamicFormContent.label!;
-    min.value = Util.data.getInt(dynamicFormContent.config!.min!);
-    max.value = Util.data.getInt(dynamicFormContent.config!.max!);
+
+    if (dynamicFormContent.config != null &&
+        dynamicFormContent.config!.min != null) {
+      min.value = Util.data.getInt(dynamicFormContent.config!.min!);
+    }
+    if (dynamicFormContent.config != null &&
+        dynamicFormContent.config!.max != null) {
+      max.value = Util.data.getInt(dynamicFormContent.config!.max!);
+    }
 
     return NumberAnswerItem(
       min: min.value,

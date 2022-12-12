@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:packages/shared/colors/colors.dart';
 import 'package:path/path.dart' as path;
 
 import 'package:flutter/material.dart';
@@ -62,6 +63,7 @@ class SigningAnswerViewModel extends GetxController {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomButton(
                   text: Messages.appText.clear,
+                  backgroundColor: Colores.secondaryColor,
                   onPressed: () {
                     _handleClearButtonPressed();
                   },
@@ -73,6 +75,7 @@ class SigningAnswerViewModel extends GetxController {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: CustomButton(
                   text: Messages.appText.save,
+                  backgroundColor: Colores.primaryColor,
                   onPressed: () {
                     handleSaveButtonPressed(context);
                   },

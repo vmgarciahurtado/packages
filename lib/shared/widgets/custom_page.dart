@@ -44,17 +44,15 @@ class CustomPage extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              Obx(
-                () => CustomNavigationBar(
-                  onBackPressed: onBackPressed,
-                  title: title,
-                  subTitle: subTitle,
-                  subTitle2: subTitle2,
-                  backButton: backButton,
-                  icon: icon,
-                  leftIconButtons: leftIconButtons,
-                  rightIconButtons: rightIconButtons,
-                ),
+              CustomNavigationBar(
+                onBackPressed: onBackPressed,
+                title: title,
+                subTitle: subTitle,
+                subTitle2: subTitle2,
+                backButton: backButton,
+                icon: icon,
+                leftIconButtons: leftIconButtons,
+                rightIconButtons: rightIconButtons,
               ),
               Expanded(
                 child: Padding(

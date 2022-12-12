@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:packages/shared/widgets/custom_card.dart';
 import '../../../../util/dynamic_form_globals.dart' as globals;
 
 import '../../../../../../lang/messages.dart';
@@ -19,7 +20,8 @@ class ViewTextAnswerComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return CustomCard(
+        body: Column(
       children: [
         Text(
           title,
@@ -39,6 +41,6 @@ class ViewTextAnswerComponent extends StatelessWidget {
           height: Get.height * 0.02,
         ),
       ],
-    );
+    ));
   }
 }

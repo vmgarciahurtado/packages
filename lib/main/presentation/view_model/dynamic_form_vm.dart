@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:packages/main/presentation/view_model/create_form_components_vm.dart';
 
 import '../../../lang/messages.dart';
 import '../../../shared/colors/colors.dart';
+import '../../../shared/colors/hex_color.dart';
 import '../../../shared/styles/text_styles.dart';
 import '../../../shared/util/util.dart';
 import '../../../shared/widgets/custom_card.dart';
@@ -17,6 +17,7 @@ import '../../domain/model/component_option.dart';
 import '../../domain/model/dynamic_form.dart';
 import '../../domain/model/dynamic_form_answer.dart';
 import '../../domain/model/dynamic_form_content.dart';
+import '../../domain/model/personalization.dart';
 import '../../domain/service/delete_form_answers_service.dart';
 import '../../domain/service/dynamic_form_answer_service.dart';
 import '../../domain/service/dynamic_form_content_service.dart';
@@ -76,6 +77,8 @@ class DynamicFormViewModel extends GetxController {
 
   Rx<Widget>? widgetAction = Row().obs;
 
+  Personalization? personalization;
+
   DynamicFormAnswer? defaultAnswer;
   DynamicFormViewModel(
       {required this.idForm,
@@ -93,7 +96,8 @@ class DynamicFormViewModel extends GetxController {
       this.callFromNewCLient,
       this.saveHeader = false,
       this.canLoadServices = true,
-      this.header});
+      this.header,
+      this.personalization});
 
   final DynamicFormService _dynamicFormService =
       DynamicFormService(iDynamicFormRepository: DynamicFormRepositorySqlite());
@@ -127,19 +131,27 @@ class DynamicFormViewModel extends GetxController {
 
   @override
   void onInit() async {
+    verifyPersonalization();
     getDynamicForm();
     getDynamicFormCotent();
     super.onInit();
   }
 
+  verifyPersonalization() {
+    if (personalization != null) {
+      if (personalization!.primaryColor.contains("#")) {
+        Colores.primaryColor = HexColor(personalization!.primaryColor);
+      }
+      if (personalization!.seCondaryColor.contains("#")) {
+        Colores.secondaryColor = HexColor(personalization!.seCondaryColor);
+      }
+    }
+  }
+
   /// It gets the form from the DB and sets the title and subtitle of the form.
   void getDynamicForm() async {
     dynamicForm = await _dynamicFormService.getDynamicForm(idForm);
-    if (codClient != '') {
-      subTitleForm.value = "$codClient  -  ${dynamicForm.name}";
-    } else {
-      titleForm.value = dynamicForm.name;
-    }
+    titleForm.value = dynamicForm.name;
   }
 
   /// The above function is used to get the content of the form from the DB.
@@ -183,8 +195,11 @@ class DynamicFormViewModel extends GetxController {
           await orderListAsGroupQuestion(dynamicFormContent);
         } else {
           for (var i = 0; i < dynamicFormContent.length; i++) {
-            listComponents.add(await CreateFormComponentViewModel()
-                .create(dynamicFormContent[i]));
+            Widget component = await CreateFormComponentViewModel()
+                .create(dynamicFormContent[i]);
+            listComponents.add(CustomCard(
+              body: component,
+            ));
             listAnswerConfig.add(dynamicFormContent[i].config!);
             listAnswerOption.add(dynamicFormContent[i].option!);
           }
