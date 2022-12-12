@@ -26,12 +26,15 @@ class DynamicFormPage extends StatelessWidget {
           backButton: true,
           title: viewModel.titleForm.value,
           subTitle: viewModel.subTitleForm.value,
+          horizontalPadding: 0,
+          verticalPadding: 0,
           onBackPressed: () {
             viewModel.isShowBackAlert.value = true;
             viewModel.onBackPressed();
           },
           rightIconButtons: [],
           body: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             color: Colores.formBackground,
             height: Get.height,
             child: SafeArea(
