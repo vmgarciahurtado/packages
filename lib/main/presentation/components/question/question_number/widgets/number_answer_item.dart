@@ -46,7 +46,8 @@ class NumberAnswerItem extends StatelessWidget {
                   width: 1.0)),
           hintText: hint,
           hintStyle: TextStyles.bodyStyle(color: Colors.grey.shade400),
-          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 15),
         ),
       );
     });
