@@ -201,6 +201,7 @@ class DynamicFormViewModel extends GetxController {
             Widget component = await CreateFormComponentViewModel()
                 .create(dynamicFormContent[i]);
             listComponents.add(CustomCard(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               body: component,
             ));
             listAnswerConfig.add(dynamicFormContent[i].config!);
