@@ -114,7 +114,8 @@ class DynamicFormViewModel extends GetxController {
       DynamicFormDeleteAnswerService(
           iDeleFormAnswerRepository: DynamicFormDeleteAnswerRepositorySqlite());
 
-  late DynamicForm dynamicForm;
+  DynamicForm dynamicForm = DynamicForm(
+      code: "", id: "", name: "", type: "", conditioned: "", context: "");
 
   RxList<DynamicFormContent> dynamicFormContent = RxList();
   RxList<Widget> listComponents = RxList();
