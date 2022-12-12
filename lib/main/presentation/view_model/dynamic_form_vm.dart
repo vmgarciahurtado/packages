@@ -145,6 +145,9 @@ class DynamicFormViewModel extends GetxController {
       if (personalization!.seCondaryColor.contains("#")) {
         Colores.secondaryColor = HexColor(personalization!.seCondaryColor);
       }
+      if (personalization!.formBackground.contains("#")) {
+        Colores.formBackground = HexColor(personalization!.formBackground);
+      }
     }
   }
 

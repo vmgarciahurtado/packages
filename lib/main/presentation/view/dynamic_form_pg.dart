@@ -32,7 +32,8 @@ class DynamicFormPage extends StatelessWidget {
           },
           rightIconButtons: [],
           body: SafeArea(
-            child: SizedBox(
+            child: Container(
+              color: Colores.formBackground,
               height: Get.height,
               child: Column(
                 children: [
