@@ -26,6 +26,8 @@ class DynamicFormPage extends StatelessWidget {
           backButton: true,
           title: viewModel.titleForm.value,
           subTitle: viewModel.subTitleForm.value,
+          verticalPadding: 0,
+          horizontalPadding: 0,
           onBackPressed: () {
             viewModel.isShowBackAlert.value = true;
             viewModel.onBackPressed();

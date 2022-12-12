@@ -6,7 +6,7 @@ class Colores {
 
   static var primaryColor = HexColor("#002341");
   static var secondaryColor = HexColor("#004139");
-  static var formBackground = HexColor("#DDDDDD");
+  static var formBackground = HexColor("#F1F1F1");
   static final primaryGray = HexColor("#656565");
   static final secondaryGray = HexColor("#ACACAC");
   static final dangerColor = Colors.red.shade400;
