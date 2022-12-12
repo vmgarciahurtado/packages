@@ -34,7 +34,6 @@ class NumberAnswerItem extends StatelessWidget {
         style: TextStyles.bodyStyle(color: Colors.grey.shade900),
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.numbers),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(WidgetStyles.textFieldRadius),
           ),
