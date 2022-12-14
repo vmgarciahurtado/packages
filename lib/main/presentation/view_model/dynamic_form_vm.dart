@@ -181,7 +181,15 @@ class DynamicFormViewModel extends GetxController {
           listAnswerConfig.add(dynamicFormContent[i].config!);
           listAnswerOption.add(dynamicFormContent[i].option!);
         }
-        listComponents.add(listWizardComponents[0]);
+
+        listComponents.add(Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: CustomCard(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+            body: listWizardComponents[0],
+          ),
+        ));
+
         listIndexComponents.add(0);
 
         break;
@@ -228,15 +236,7 @@ class DynamicFormViewModel extends GetxController {
             widgetAction!.value = widget;
             isDynamicFormAction.value = true;
           } else {
-            //listComponents.add(widget);
-            listComponents.add(Container(
-              margin: const EdgeInsets.only(bottom: 10),
-              child: CustomCard(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                body: widget,
-              ),
-            ));
+            listComponents.add(widget);
             listAnswerConfig.add(dynamicFormContent[i].config!);
             listAnswerOption.add(dynamicFormContent[i].option!);
           }
