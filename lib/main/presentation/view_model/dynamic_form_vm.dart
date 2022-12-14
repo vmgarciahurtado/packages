@@ -254,7 +254,12 @@ class DynamicFormViewModel extends GetxController {
       wizardComponentPosition.value = listIndexComponents.last;
       _setButtonWizardFormVisivility();
       listComponents.removeAt((0));
-      listComponents.add(listWizardComponents[(listIndexComponents.last)]);
+
+      var widget = CustomCard(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+        body: listWizardComponents[(listIndexComponents.last)],
+      );
+      listComponents.add(widget);
     }
   }
 
@@ -277,7 +282,12 @@ class DynamicFormViewModel extends GetxController {
       listComponents.removeAt((0));
       listIndexComponents.removeLast();
       wizardComponentPosition.value = listIndexComponents.last;
-      listComponents.add(listWizardComponents[(listIndexComponents.last)]);
+
+      var widget = CustomCard(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+        body: listWizardComponents[(listIndexComponents.last)],
+      );
+      listComponents.add(widget);
     }
   }
 
