@@ -228,7 +228,15 @@ class DynamicFormViewModel extends GetxController {
             widgetAction!.value = widget;
             isDynamicFormAction.value = true;
           } else {
-            listComponents.add(widget);
+            //listComponents.add(widget);
+            listComponents.add(Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: CustomCard(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                body: widget,
+              ),
+            ));
             listAnswerConfig.add(dynamicFormContent[i].config!);
             listAnswerOption.add(dynamicFormContent[i].option!);
           }
