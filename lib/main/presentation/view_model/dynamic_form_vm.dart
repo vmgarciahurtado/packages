@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:packages/main/domain/service/segmentation_service.dart';
+import 'package:packages/main/infrastructure/segmentation_repository_sqlite.dart';
 import 'package:packages/main/presentation/view_model/create_form_components_vm.dart';
 
 import '../../../lang/messages.dart';
@@ -18,6 +20,7 @@ import '../../domain/model/dynamic_form.dart';
 import '../../domain/model/dynamic_form_answer.dart';
 import '../../domain/model/dynamic_form_content.dart';
 import '../../domain/model/personalization.dart';
+import '../../domain/model/segmentation.dart';
 import '../../domain/service/delete_form_answers_service.dart';
 import '../../domain/service/dynamic_form_answer_service.dart';
 import '../../domain/service/dynamic_form_content_service.dart';
@@ -79,6 +82,8 @@ class DynamicFormViewModel extends GetxController {
 
   Personalization? personalization;
 
+  Segmentation segmentation = Segmentation();
+
   DynamicFormAnswer? defaultAnswer;
   DynamicFormViewModel(
       {required this.idForm,
@@ -113,6 +118,9 @@ class DynamicFormViewModel extends GetxController {
   final DynamicFormDeleteAnswerService _dynamicFormDeleteAnswerService =
       DynamicFormDeleteAnswerService(
           iDeleFormAnswerRepository: DynamicFormDeleteAnswerRepositorySqlite());
+
+  final SegmentationService _segmentationService = SegmentationService(
+      iSegmentationRepository: SegmentationRepositorySqlite());
 
   DynamicForm dynamicForm = DynamicForm(
       code: "", id: "", name: "", type: "", conditioned: "", context: "");
@@ -620,8 +628,45 @@ class DynamicFormViewModel extends GetxController {
             backgroundColor: Colors.red.shade400, colorText: Colors.white);
       }
     } else {
+      if (idForm == "1") {
+        await calculateSegmentation();
+        await getNameSegment();
+      }
       confirmDialog();
     }
+  }
+
+  Future<void> calculateSegmentation() async {
+    bool needCalculateSegment = false;
+
+    String codeParam = listCompletedAnswers.last.codeParam!;
+
+    for (var i = 0; i < listCompletedAnswers.length; i++) {
+      if (listCompletedAnswers[i].isEndSegmentation != null) {
+        if (listCompletedAnswers[i].isEndSegmentation!) {
+          needCalculateSegment = true;
+          codeParam = listCompletedAnswers[i].codeParam!;
+        }
+      }
+    }
+
+    try {
+      segmentation = await _segmentationService.getSegmentation(codeParam);
+    } catch (e) {
+      segmentation = await _segmentationService.getSegmentation('0');
+    }
+
+    if (needCalculateSegment) {
+      int weighting = weightingSegmentation.toInt();
+
+      segmentation.segmento = await _segmentationService.getSegment(
+          typeSurveySegmentation, weighting);
+    }
+  }
+
+  Future<void> getNameSegment() async {
+    String segment = segmentation.segmento!;
+    segmentation.name = await _segmentationService.getNameSegment(segment);
   }
 
   /// It sends all the answers to the DB from another page
