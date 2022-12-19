@@ -658,6 +658,8 @@ class DynamicFormViewModel extends GetxController {
       segmentation.segmento = await _segmentationService.getSegment(
           typeSurveySegmentation, weighting);
     }
+
+    await getNameSegment();
   }
 
   Future<void> getNameSegment() async {
