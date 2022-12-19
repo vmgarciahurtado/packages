@@ -59,7 +59,7 @@ class SegmentationRepositorySqlite extends ISegmentationRepository {
       BaseSqliteService sqliteService = SqliteService();
       Database db = await sqliteService.openDB();
       String statement = '''SELECT name 
-           FROM segment_description 
+           FROM segmentation_description 
            WHERE code = '$segment' AND type = 'tipologia' ''';
       List<Map> list = await db.rawQuery(statement);
       segment = list.map((e) => e['name']).first;
