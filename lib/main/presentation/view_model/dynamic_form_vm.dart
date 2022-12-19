@@ -628,10 +628,6 @@ class DynamicFormViewModel extends GetxController {
             backgroundColor: Colors.red.shade400, colorText: Colors.white);
       }
     } else {
-      if (idForm == "1") {
-        await calculateSegmentation();
-        await getNameSegment();
-      }
       confirmDialog();
     }
   }
