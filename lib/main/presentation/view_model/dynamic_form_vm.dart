@@ -663,8 +663,8 @@ class DynamicFormViewModel extends GetxController {
   }
 
   Future<void> getNameSegment() async {
-    String segment = segmentation.segmento!;
-    segmentation.name = await _segmentationService.getNameSegment(segment);
+    String tipologia = segmentation.tipologia!;
+    segmentation.name = await _segmentationService.getNameSegment(tipologia);
   }
 
   /// It sends all the answers to the DB from another page
