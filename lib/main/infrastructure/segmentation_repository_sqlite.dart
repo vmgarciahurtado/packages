@@ -62,7 +62,7 @@ class SegmentationRepositorySqlite extends ISegmentationRepository {
            FROM segmentation_description 
            WHERE code = '$segment' AND type = 'tipologia' ''';
       List<Map> list = await db.rawQuery(statement);
-      segment = list.map((e) => e['name']).first;
+      nameSegment = list.map((e) => e['name']).first;
       return nameSegment;
     } catch (e) {
       Get.printError(info: "$e");
