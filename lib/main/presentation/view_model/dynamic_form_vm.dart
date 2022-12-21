@@ -381,8 +381,9 @@ class DynamicFormViewModel extends GetxController {
   /// Returns:
   ///   a boolean value.
   bool answerHaveDestiny(int position, VerifyAnswerViewModel verifyViewModel) {
-    if (listAnswerConfig[position].weighting != null) {
-      var weighting = listAnswerConfig[position].weighting!.weighting!;
+    if (listAnswerConfig[listIndexComponents.last].weighting != null) {
+      var weighting =
+          listAnswerConfig[listIndexComponents.last].weighting!.weighting!;
 
       if (typeSurveySegmentation == 'TD') {
         if (listAnswerConfig[position].questionScore != null) {
@@ -403,8 +404,9 @@ class DynamicFormViewModel extends GetxController {
               .add(weighting * double.parse(answerValue['value']));
         }
       } else if (typeSurveySegmentation == 'AU') {
-        if (listAnswerConfig[position].questionScore != null) {
-          if (Util.data.getBool(listAnswerConfig[position].questionScore!)) {
+        if (listAnswerConfig[listIndexComponents.last].questionScore != null) {
+          if (Util.data.getBool(
+              listAnswerConfig[listIndexComponents.last].questionScore!)) {
             int value = listAnswerOption[position]
                     [verifyViewModel.answerPosition.value]
                 .value!;

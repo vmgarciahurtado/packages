@@ -40,20 +40,33 @@ class SegmentationRepositorySqlite extends ISegmentationRepository {
     BaseSqliteService sqliteService = SqliteService();
     Database db = await sqliteService.openDB();
 
-    String statement = '''SELECT code_segment 
+    String statementSegmentClassification = '''SELECT _from,_to,code_segment 
            FROM segment_classification 
-           WHERE type = '$typeSurvey' AND $weighting > _from  ORDER BY _from  DESC LIMIT 1 ''';
-    List<Map> list = await db.rawQuery(statement);
+           WHERE type = '$typeSurvey' ''';
 
-    if (list.isEmpty) {
-      if (weighting <= await getMinSegmentValue(typeSurvey)) {
-        segment = await getMinSegmentCode(typeSurvey);
+    List<Map> listSegmentClassification = [];
+    List<Map> list = await db.rawQuery(statementSegmentClassification);
+
+    for (var i = 0; i < list.length; i++) {
+      if (list[i]['_from'] == 0) {
+        final modifiedObject = Map.of(list[i]);
+        modifiedObject['_from'] = -(double.maxFinite.toInt() * 1) / 2;
+        listSegmentClassification.add(modifiedObject);
       } else {
-        segment = "";
+        listSegmentClassification.add(list[i]);
       }
-    } else {
-      segment = list.map((e) => e['code_segment']).first;
+      if (list[i]['_to'] == 0) {
+        final modifiedObject = Map.of(list[i]);
+        modifiedObject['_to'] = (double.maxFinite.toInt() / 2);
+        listSegmentClassification.add(modifiedObject);
+      } else {
+        listSegmentClassification.add(list[i]);
+      }
     }
+
+    segment = listSegmentClassification.firstWhere((element) =>
+        weighting >= element['_from'] &&
+        weighting <= element['_to'])['code_segment'];
 
     return segment;
   }

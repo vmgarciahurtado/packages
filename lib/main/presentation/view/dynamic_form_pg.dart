@@ -54,7 +54,8 @@ class DynamicFormPage extends StatelessWidget {
                                           ? viewModel.listComponents[0]
                                           : Container())),
                           Visibility(
-                            visible: viewModel.isStepProgress.value,
+                            //visible: viewModel.isStepProgress.value,
+                            visible: false,
                             child: SizedBox(
                               height: Get.height * 0.05,
                               child: Padding(
