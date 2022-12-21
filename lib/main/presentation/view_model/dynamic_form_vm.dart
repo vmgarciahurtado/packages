@@ -381,9 +381,8 @@ class DynamicFormViewModel extends GetxController {
   /// Returns:
   ///   a boolean value.
   bool answerHaveDestiny(int position, VerifyAnswerViewModel verifyViewModel) {
-    if (listAnswerConfig[listIndexComponents.last].weighting != null) {
-      var weighting =
-          listAnswerConfig[listIndexComponents.last].weighting!.weighting!;
+    if (listAnswerConfig[position].weighting != null) {
+      var weighting = listAnswerConfig[position].weighting!.weighting!;
 
       if (typeSurveySegmentation == 'TD') {
         if (listAnswerConfig[position].questionScore != null) {
@@ -404,9 +403,8 @@ class DynamicFormViewModel extends GetxController {
               .add(weighting * double.parse(answerValue['value']));
         }
       } else if (typeSurveySegmentation == 'AU') {
-        if (listAnswerConfig[listIndexComponents.last].questionScore != null) {
-          if (Util.data.getBool(
-              listAnswerConfig[listIndexComponents.last].questionScore!)) {
+        if (listAnswerConfig[position].questionScore != null) {
+          if (Util.data.getBool(listAnswerConfig[position].questionScore!)) {
             int value = listAnswerOption[position]
                     [verifyViewModel.answerPosition.value]
                 .value!;
@@ -573,10 +571,6 @@ class DynamicFormViewModel extends GetxController {
 
   /// The above function is used to save the form.
   void saveForm() async {
-    if (typeSurveySegmentation == 'TD') {
-      weightingSegmentation = weightingSegmentation + 30;
-    }
-
     int countRequiredResponse = 0;
     int requiredResponseComplete = 0;
 
@@ -655,6 +649,9 @@ class DynamicFormViewModel extends GetxController {
     if (needCalculateSegment) {
       int weighting = weightingSegmentation.toInt();
 
+      if (typeSurveySegmentation == 'TD') {
+        weighting = weighting + 30;
+      }
       segmentation.segmento = await _segmentationService.getSegment(
           typeSurveySegmentation, weighting);
     }

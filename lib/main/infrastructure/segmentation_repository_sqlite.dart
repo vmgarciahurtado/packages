@@ -37,19 +37,51 @@ class SegmentationRepositorySqlite extends ISegmentationRepository {
   @override
   Future<String> getSegment(String typeSurvey, int weighting) async {
     String segment = '';
-    try {
-      BaseSqliteService sqliteService = SqliteService();
-      Database db = await sqliteService.openDB();
-      String statement = '''SELECT code_segment 
+    BaseSqliteService sqliteService = SqliteService();
+    Database db = await sqliteService.openDB();
+
+    String statement = '''SELECT code_segment 
            FROM segment_classification 
-           WHERE type = '$typeSurvey' AND $weighting >= _from  ORDER BY _from  DESC LIMIT 1 ''';
-      List<Map> list = await db.rawQuery(statement);
+           WHERE type = '$typeSurvey' AND $weighting > _from  ORDER BY _from  DESC LIMIT 1 ''';
+    List<Map> list = await db.rawQuery(statement);
+
+    if (list.isEmpty) {
+      if (weighting <= await getMinSegmentValue(typeSurvey)) {
+        segment = await getMinSegmentCode(typeSurvey);
+      } else {
+        segment = "";
+      }
+    } else {
       segment = list.map((e) => e['code_segment']).first;
-      return segment;
-    } catch (e) {
-      Get.printError(info: "$e");
-      return segment = '';
     }
+
+    return segment;
+  }
+
+  Future<int> getMinSegmentValue(String typeSurvey) async {
+    int segment = 0;
+    BaseSqliteService sqliteService = SqliteService();
+    Database db = await sqliteService.openDB();
+
+    String statement = '''SELECT _from 
+           FROM segment_classification 
+           WHERE type = '$typeSurvey'  ORDER BY _from  ASC LIMIT 1 ''';
+    List<Map> list = await db.rawQuery(statement);
+    segment = list.map((e) => e['_from']).first;
+    return segment;
+  }
+
+  Future<String> getMinSegmentCode(String typeSurvey) async {
+    String segment = '';
+    BaseSqliteService sqliteService = SqliteService();
+    Database db = await sqliteService.openDB();
+
+    String statement = '''SELECT code_segment 
+           FROM segment_classification 
+           WHERE type = '$typeSurvey'  ORDER BY _from  ASC LIMIT 1 ''';
+    List<Map> list = await db.rawQuery(statement);
+    segment = list.map((e) => e['code_segment']).first;
+    return segment;
   }
 
   @override
